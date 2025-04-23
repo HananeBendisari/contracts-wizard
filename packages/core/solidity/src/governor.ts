@@ -113,7 +113,7 @@ function addBase(c: ContractBuilder, { name }: GovernorOptions) {
   c.addParent(Governor, [name]);
   c.addOverride(Governor, functions.votingDelay);
   c.addOverride(Governor, functions.votingPeriod);
-  c.addOverride(Governor, functions.quorum);
+  //c.addOverride(Governor, functions.quorum);
   c.addOverride(Governor, functions.state);
   c.addOverride(Governor, functions.propose);
   c.addOverride(Governor, functions.proposalNeedsQueuing);
@@ -308,6 +308,7 @@ function addQuorum(c: ContractBuilder, opts: Required<GovernorOptions>) {
         : `return ${opts.quorumAbsolute}e${opts.decimals};`;
 
     c.setFunctionBody([returnStatement], functions.quorum, 'pure');
+    c.addOverride({ name: 'Governor' }, functions.quorum);
   }
 }
 
